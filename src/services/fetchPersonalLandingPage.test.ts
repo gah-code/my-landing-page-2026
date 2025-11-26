@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { HeroSection } from '../data/page-personal-landing';
 import type { AnyEntry } from './fetchPersonalLandingPage';
-import { mapSectionFromEntry } from './fetchPersonalLandingPage';
+import { mapSectionFromEntry, mapHeroSection } from './fetchPersonalLandingPage';
 
 function makeEntry(typeId: string, fields: Record<string, unknown>) {
   return {
@@ -45,5 +45,74 @@ describe('mapSectionFromEntry', () => {
     const result = mapSectionFromEntry(badEntry);
 
     expect(result).toBeNull();
+  });
+});
+
+function makeHeroEntry(fields: Record<string, unknown>) {
+  return {
+    sys: {
+      id: 'hero-id',
+      contentType: { sys: { id: 'sectionHero' } },
+    },
+    fields,
+  } as AnyEntry;
+}
+
+describe('mapHeroSection heroStyle mapping', () => {
+  it('defaults to typographic when heroStyle is missing', () => {
+    const entry = makeHeroEntry({
+      anchorId: 'top',
+      title: 'Gilberto Haro',
+      tagline: 'Tagline',
+      intro: 'Intro',
+    });
+
+    const mapped = mapHeroSection(entry) as HeroSection;
+    expect(mapped.heroStyle).toBe('typographic');
+  });
+
+  it('maps avatar style and avatarUrl when asset is present', () => {
+    const entry = makeHeroEntry({
+      anchorId: 'top',
+      title: 'Gilberto Haro',
+      tagline: 'Tagline',
+      intro: 'Intro',
+      heroStyle: 'avatar',
+      avatarImage: {
+        fields: { file: { url: '//images.ctfassets.net/some-avatar.png' } },
+      },
+    });
+
+    const mapped = mapHeroSection(entry) as HeroSection;
+    expect(mapped.heroStyle).toBe('avatar');
+    expect(mapped.avatarUrl).toContain('https://');
+  });
+
+  it('falls back to typographic if avatar style has no avatar image', () => {
+    const entry = makeHeroEntry({
+      anchorId: 'top',
+      title: 'Gilberto Haro',
+      tagline: 'Tagline',
+      intro: 'Intro',
+      heroStyle: 'avatar',
+    });
+
+    const mapped = mapHeroSection(entry) as HeroSection;
+    expect(mapped.heroStyle).toBe('typographic');
+    expect(mapped.avatarUrl).toBeUndefined();
+  });
+
+  it('falls back to typographic if image style has no hero image', () => {
+    const entry = makeHeroEntry({
+      anchorId: 'top',
+      title: 'Gilberto Haro',
+      tagline: 'Tagline',
+      intro: 'Intro',
+      heroStyle: 'image',
+    });
+
+    const mapped = mapHeroSection(entry) as HeroSection;
+    expect(mapped.heroStyle).toBe('typographic');
+    expect(mapped.heroImageUrl).toBeUndefined();
   });
 });

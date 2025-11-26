@@ -3,6 +3,7 @@ import type {
   PersonalLandingPage,
   PageSection,
   HeroSection,
+  HeroStyle,
   TimelineSection,
   SkillsSection,
   ProjectsSection,
@@ -81,8 +82,30 @@ export function mapSectionFromEntry(entry: AnyEntry): PageSection | null {
 
 // HERO
 
-function mapHeroSection(entry: AnyEntry): HeroSection {
+export function mapHeroSection(entry: AnyEntry): HeroSection {
   const f = entry.fields;
+
+  const rawStyle = f.heroStyle as string | undefined;
+  const allowedStyles: HeroStyle[] = ['typographic', 'avatar', 'image'];
+  const heroStyle: HeroStyle =
+    rawStyle && allowedStyles.includes(rawStyle as HeroStyle) ? (rawStyle as HeroStyle) : 'typographic';
+
+  const avatarAsset = f.avatarImage as AnyEntry | undefined;
+  const heroImageAsset = f.heroImage as AnyEntry | undefined;
+
+  const avatarUrl =
+    avatarAsset?.fields?.file?.url ? ensureAssetUrl(avatarAsset.fields.file.url as string) : undefined;
+
+  const heroImageUrl =
+    heroImageAsset?.fields?.file?.url ? ensureAssetUrl(heroImageAsset.fields.file.url as string) : undefined;
+
+  const effectiveStyle: HeroStyle =
+    heroStyle === 'avatar' && avatarUrl
+      ? 'avatar'
+      : heroStyle === 'image' && heroImageUrl
+        ? 'image'
+        : 'typographic';
+
   return {
     id: entry.sys.id,
     sectionType: 'hero',
@@ -106,6 +129,9 @@ function mapHeroSection(entry: AnyEntry): HeroSection {
         }
       : undefined,
     highlights: f.highlights || [],
+    heroStyle: effectiveStyle,
+    avatarUrl,
+    heroImageUrl,
   };
 }
 
@@ -261,4 +287,9 @@ function mapContactSection(entry: AnyEntry): ContactSection {
 function safeArray<T>(value: T | T[] | undefined): T[] {
   if (!value) return [];
   return Array.isArray(value) ? value : [value];
+}
+
+function ensureAssetUrl(url: string): string {
+  if (url.startsWith('http')) return url;
+  return `https:${url}`;
 }

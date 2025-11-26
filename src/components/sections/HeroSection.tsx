@@ -5,32 +5,66 @@ interface Props {
 }
 
 export function HeroSectionView({ section }: Props) {
-  return (
-    <div className="hero">
-      {section.eyebrow && <p className="hero-eyebrow">{section.eyebrow}</p>}
-      <h1 className="hero-title">{section.title}</h1>
-      <p className="hero-tagline">{section.tagline}</p>
-      <p className="hero-intro">{section.intro}</p>
+  const {
+    heroStyle = 'typographic',
+    avatarUrl,
+    heroImageUrl,
+    eyebrow,
+    title,
+    tagline,
+    intro,
+    primaryAction,
+    secondaryAction,
+    highlights,
+  } = section;
 
-      <div className="hero-actions">
-        {section.primaryAction && (
-          <a href={section.primaryAction.href} className="button button-primary">
-            {section.primaryAction.label}
-          </a>
-        )}
-        {section.secondaryAction && (
-          <a href={section.secondaryAction.href} className="button button-secondary">
-            {section.secondaryAction.label}
-          </a>
+  const effectiveStyle =
+    heroStyle === 'avatar' && avatarUrl
+      ? 'avatar'
+      : heroStyle === 'image' && heroImageUrl
+        ? 'image'
+        : 'typographic';
+
+  return (
+    <div className={`hero hero--${effectiveStyle}`}>
+      <div className="hero-main">
+        {eyebrow && <p className="hero-eyebrow">{eyebrow}</p>}
+        <h1 className="hero-title">{title}</h1>
+        <p className="hero-tagline">{tagline}</p>
+        <p className="hero-intro">{intro}</p>
+
+        <div className="hero-actions">
+          {primaryAction && (
+            <a href={primaryAction.href} className="button button-primary">
+              {primaryAction.label}
+            </a>
+          )}
+          {secondaryAction && (
+            <a href={secondaryAction.href} className="button button-secondary">
+              {secondaryAction.label}
+            </a>
+          )}
+        </div>
+
+        {highlights && highlights.length > 0 && (
+          <ul className="hero-highlights">
+            {highlights.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         )}
       </div>
 
-      {section.highlights && section.highlights.length > 0 && (
-        <ul className="hero-highlights">
-          {section.highlights.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+      {effectiveStyle === 'avatar' && avatarUrl && (
+        <div className="hero-side hero-side--avatar">
+          <img src={avatarUrl} alt={`Portrait of ${title}`} className="hero-avatar" />
+        </div>
+      )}
+
+      {effectiveStyle === 'image' && heroImageUrl && (
+        <div className="hero-side hero-side--image">
+          <img src={heroImageUrl} alt="" className="hero-image" />
+        </div>
       )}
     </div>
   );

@@ -3,6 +3,7 @@
 // ---------- Section type discriminants ----------
 
 export type SectionType = 'hero' | 'timeline' | 'skills' | 'projects' | 'learning' | 'contact';
+export type HeroStyle = 'typographic' | 'avatar' | 'image';
 
 interface BaseSection {
   id: string;
@@ -22,6 +23,9 @@ export interface HeroSection extends BaseSection {
   primaryAction?: HeroAction;
   secondaryAction?: HeroAction;
   highlights?: string[];
+  heroStyle?: HeroStyle;
+  avatarUrl?: string;
+  heroImageUrl?: string;
 }
 
 export interface HeroAction {
@@ -403,4 +407,3 @@ export const personalLandingPage: PersonalLandingPage = {
     },
   ],
 };
-

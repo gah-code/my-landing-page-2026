@@ -52,3 +52,39 @@ Running log of agent-assisted reviews for `gharo-ui-prototype`.
   - Unknown section types now warn and are skipped instead of breaking the page.
   - Mapping layer remains layout-agnostic; UI continues to consume typed data only.
   - `npm run lint` passes.
+
+## Checkpoint – Landing Page SEO Polish (Phase 9.1)
+
+- Date: 2025-11-25
+- Focus: SEO stack for the personal landing page (title, description, OG, structured data).
+
+### Changes
+
+- **Seo.tsx**
+  - Sets a stable default `<title>` (e.g. “Gilberto Haro – Web Engineer & Content Systems”).
+  - Ensures `<meta name="description">` is always present with a non-empty blurb.
+  - Injects basic Open Graph tags:
+    - `og:title`, `og:description`, `og:type=website`, `og:url`, `og:image`.
+  - Uses canonical URL + default OG image path when values are missing.
+
+- **PersonSchema.tsx**
+  - Now uses real:
+    - Name and job title.
+    - Production URL.
+    - LinkedIn and GitHub URLs in `sameAs`.
+
+- **index.html**
+  - Head now has fallback:
+    - `<title>` and meta description.
+    - OG tags for non-JS crawlers / social scrapers.
+
+- **Assets**
+  - Added placeholder social card: `public/og/landing-default.png` (simple gradient) so OG image path resolves in all environments.
+
+### Notes
+
+- Can swap in a designed OG image at `public/og/landing-default.png` later.
+- `<Seo />` still respects `meta.title` / `meta.description` from CMS; defaults catch missing values if Contentful content changes.
+- Quick manual verification done:
+  - `npm run dev` – inspected `<head>` for title/description/OG tags.
+  - `npm run preview` – confirmed build works and OG path resolves.
