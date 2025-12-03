@@ -1,10 +1,9 @@
 
 # narrative-interface-system
 
-Test
+Narrative Interface System is the evolution of my personal landing page codebase into a reusable, section-driven foundation. It keeps the proven landing experience intact today while treating every section (hero, timeline, skills, projects, learning, contact) as a composable building block.
 
-Next: **Interface & Narrative Toolkit**  
-**Bucket 1 – Personal Landing**
+This repo is where I harden the data contracts, layout shell, and Contentful mapping patterns that will power future narrative surfaces. The current deployment still serves the personal site, but each change aims to make the same system ready for additional pages without rewriting the core.
 
 [![Version](https://img.shields.io/badge/version-v0.1.0-blue)](./VERSION)  
 [![Last Commit](https://img.shields.io/github/last-commit/gah-code/narrative-interface-system)](https://github.com/gah-code/narrative-interface-system/commits/main)  

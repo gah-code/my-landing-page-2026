@@ -34,3 +34,7 @@
 1. Add JSON-LD Person schema for better "name & profile" recognition.
 2. Wire lightweight analytics (e.g., GA4) for page + scroll tracking.
 3. Add a CI job (GitHub Actions) to run `npm run lint` + `npm run build` before Netlify deploys.
+
+--
+
+This status now tracks the transition from a shipped personal landing page into the Narrative Interface System foundation. Phase 9 locked the single-page experience; current work focuses on solidifying the section contracts, layout shell, and Contentful mapping so the same codebase can support future surfaces.
