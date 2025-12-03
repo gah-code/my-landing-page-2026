@@ -1,15 +1,15 @@
 
-# my-landing-page-2026
+# narrative-interface-system
 
 Next: **Interface & Narrative Toolkit**  
 **Bucket 1 – Personal Landing**
 
 [![Version](https://img.shields.io/badge/version-v0.1.0-blue)](./VERSION)  
-[![Last Commit](https://img.shields.io/github/last-commit/gah-code/my-landing-page-2026)](https://github.com/gah-code/my-landing-page-2026/commits/main)  
+[![Last Commit](https://img.shields.io/github/last-commit/gah-code/narrative-interface-system)](https://github.com/gah-code/narrative-interface-system/commits/main)  
 [![Node](https://img.shields.io/badge/node-%E2%89%A520-orange?logo=node.js&logoColor=white)](https://nodejs.org/)  
-[![Netlify Status](https://api.netlify.com/api/v1/badges/80b7e809-3810-4be9-aee4-a5004d9ac7fd/deploy-status)](https://app.netlify.com/projects/my-landing-page-2026/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/80b7e809-3810-4be9-aee4-a5004d9ac7fd/deploy-status)](https://app.netlify.com/projects/narrative-interface-system/deploys)
 
-> **my-landing-page-2026** is a high-signal personal landing page that treats SEO, narrative, and content modeling as one system.  
+> **Narrative Interface System** is a high-signal personal landing page that treats SEO, narrative, and content modeling as one system.  
 > Built UI-first, CMS-second, with **Contentful** + **Agent-assisted reviews** to keep the landing page sharp.
 
 Structure version: `v0.1.0`  
@@ -135,7 +135,7 @@ Everything under “Next Steps” is **optional polish** to keep sharpening the 
 ## 4. Architecture & Folder Structure
 
 ```text
-my-landing-page-2026/
+narrative-interface-system/
 ├── VERSION
 ├── README.md
 ├── CHANGELOG.md
@@ -484,7 +484,7 @@ These make it much easier for future agents (and future you) to reconstruct cont
 A few high-impact ways to use your ChatGPT Pro account **just for this landing page**:
 
 - [ ] **Dedicated Project for this repo**
-  - Create a ChatGPT **Project** named `my-landing-page-2026`.
+  - Create a ChatGPT **Project** named `narrative-interface-system`.
   - Upload:
     - `README.md`
     - Latest `lighthouse-report.html` (from Netlify or local run)
@@ -531,7 +531,7 @@ For future tweaks:
 
 ```bash
 netlify login
-netlify link    # choose your Netlify site (e.g. my-landing-page-2026)
+netlify link    # choose your Netlify site (e.g. narrative-interface-system)
 ```
 
 ### Set environment variables (CLI)
